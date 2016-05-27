@@ -9,21 +9,23 @@ public class UDPServer {
 		byte[] receiveData = new byte[1024];
 		byte[] sendData = new byte[1024];
 		while(true){
+			
 			DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
 			serverSocket.receive(receivePacket);
 			String sentence = new String(receivePacket.getData());
 			InetAddress IPAddress = receivePacket.getAddress();
 			int port = receivePacket.getPort();
-			String modifiedSentence = sentence + " NODE MODIFIED";
+			String modifiedSentence = "Made it to worker: " + sentence ;
 			System.out.println(modifiedSentence);
 			sendData = modifiedSentence.getBytes();
 			DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,IPAddress,port);
 			serverSocket.send(sendPacket);
-			serverSocket.close();
+			modifiedSentence = "";
 		}
 		}
 		catch(SocketException ex){
 			System.out.println("UDP Port 9875 is occupied");
+			ex.printStackTrace();
 			System.exit(1);
 		}
 	}
