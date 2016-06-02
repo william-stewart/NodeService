@@ -24,7 +24,9 @@ public class UDPServer {
 			System.out.println(modifiedSentence);
 			sendData = modifiedSentence.getBytes();
 			DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,IPAddress,port);
+			System.out.println("was able to create new packet to be returned");
 			serverSocket.send(sendPacket);
+			System.out.println("Sent back to Master");
 			modifiedSentence = "";
 			sentence = "";
 		}
